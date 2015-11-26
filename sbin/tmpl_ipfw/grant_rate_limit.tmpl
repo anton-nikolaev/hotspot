@@ -1,0 +1,21 @@
+# BEWARE!!
+# 
+# Empty lines are the command separators here. Not just a newline!
+# 
+# BEWARE!!
+
+/sbin/ipfw pipe <tmpl_var name="out_rule_num">
+	config bw <tmpl_var name="rate_limit">bit/s
+
+/sbin/ipfw pipe <tmpl_var name="in_rule_num">
+	config bw <tmpl_var name="rate_limit">bit/s
+	
+/sbin/ipfw add <tmpl_var name="out_rule_num">
+	pipe <tmpl_var name="out_rule_num"> 
+	all from <tmpl_var name="client_ip">
+		to any in via <tmpl_var name="iface">
+
+/sbin/ipfw add <tmpl_var name="in_rule_num">
+	pipe <tmpl_var name="in_rule_num"> 
+	all from any to <tmpl_var name="client_ip">
+		out via <tmpl_var name="iface">

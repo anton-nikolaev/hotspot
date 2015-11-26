@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Авторизация</title>
+		
+		<link href="/css/bootstrap.min.css" rel="stylesheet">		
+		<link href="/css/style.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="/js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<script src="/js/jquery-1.8.1.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>	
+		
+	</head>	
+	<body>
+			
+		<div class="container">
+											
+			<div class="hero-unit">
+				
+				<form action="/" method="post">
+				<input type="hidden" name="src_ref" value="<tmpl_var name=src_ref>">
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">Логин</label>
+						<div class="controls">
+							<input class="input-xlarge" type="text" id="inputEmail" name="login" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputPassword">Пароль</label>
+						<div class="controls">
+							<input class="input-xlarge" type="password" id="inputPassword" name="pass" />
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<button type="submit" class="btn btn-primary btn-large">Войти</button>
+						</div>
+					</div>
+				</form>
+
+				<hr />
+
+				<h6>
+					Сервис предоставлен компанией<br />
+					<span class="nowrap">ОАО "АК Мобилтелеком"</span>
+					
+					<br />
+					<br />
+					
+					По всем вопросам обращайтесь по телефону 297-021
+				</h6>
+			</div>
+						
+		</div>
+			
+	</body>
+</html>

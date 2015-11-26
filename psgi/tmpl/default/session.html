@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta http-equiv="refresh" content="60">
+<script>
+
+function getXmlHttp(){
+  var xmlhttp;
+  try {
+    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+  } catch (e) {
+    try {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } catch (E) {
+      xmlhttp = false;
+    }
+  }
+  if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+    xmlhttp = new XMLHttpRequest();
+  }
+  return xmlhttp;
+}
+
+function logout_session()
+{
+    var xmlhttp = getXmlHttp()
+    xmlhttp.open('DELETE', '<tmpl_var name=path_info>', false);
+    xmlhttp.send(null);
+    if(xmlhttp.status == 200)
+    {
+        location.href="<tmpl_var name=path_info>";
+    }
+    else
+    {
+        alert(xmlhttp.responseText);
+    }
+}
+
+</script>
+</head>
+<body>
+Ваша сессия активна.
+<input type="button" onClick="javascript:logout_session()" value="Завершить">
+<p>
+Ваш логин: <tmpl_var name="login">
+<p>
+Время начала сессии: <tmpl_var name="create_time">
+<p>
+Ваш трафик (вх/исх):
+	<tmpl_var name="traf_in_bytes">/<tmpl_var name="traf_out_bytes"> байт,
+	<tmpl_var name="traf_in_packs">/<tmpl_var name="traf_out_packs"> пакет
+<tmpl_if name="rate_limit">
+<p>
+	Ваша сессия ограничена по ширине канала: <tmpl_var name="rate_limit">кбит/c
+</tmpl_if>
+</body>
+</html>

@@ -1,0 +1,68 @@
+# BEWARE!!
+# 
+# Empty lines are the command separators here. Not just a newline!
+# 
+# BEWARE!!
+
+<tmpl_unless name="hotspot_disabled">
+
+	<tmpl_if name="bw_limit">
+		
+		/sbin/ipfw pipe <tmpl_var name="in_pipe_num">
+			config bw <tmpl_var name="bw_limit">bit/s
+
+		/sbin/ipfw pipe <tmpl_var name="out_pipe_num">
+			config bw <tmpl_var name="bw_limit">bit/s
+
+		/sbin/ipfw add <tmpl_var name="in_pipe_num">
+			pipe <tmpl_var name="in_pipe_num">
+			all from any to any out via <tmpl_var name="iface">
+
+		/sbin/ipfw add <tmpl_var name="out_pipe_num">
+			pipe <tmpl_var name="out_pipe_num">
+			all from any to any in via <tmpl_var name="iface">
+
+	</tmpl_if>
+
+	<tmpl_if name="radius_auth"> 
+
+		/sbin/ipfw table <tmpl_var name="table_num"> flush 
+
+		<tmpl_loop name="sessions_add">
+
+			/sbin/ipfw table <tmpl_var name="table_num">
+				add <tmpl_var name="ip">
+
+		</tmpl_loop>
+
+		/sbin/ipfw add allow tcp from table\(<tmpl_var name="table_num">\)
+			to any <tmpl_var name="allowed_tcp_ports">
+			in via <tmpl_var name="iface">
+
+		/sbin/ipfw add allow tcp from me
+			to any <tmpl_var name="allowed_tcp_ports"> out via sis0
+
+		/sbin/ipfw add allow tcp from any <tmpl_var name="allowed_tcp_ports">
+			to table\(<tmpl_var name="table_num">\) established
+
+		/sbin/ipfw add fwd 127.0.0.1,80 tcp from <tmpl_var name="hs_net">
+			to any 80 via <tmpl_var name="iface">
+
+		/sbin/ipfw add allow tcp from any 80 to <tmpl_var name="hs_net">
+			established via <tmpl_var name="iface">
+
+		/sbin/ipfw add allow tcp from <tmpl_var name="hs_net">
+			to me 80 setup via <tmpl_var name="iface">
+
+	<tmpl_else>
+
+		/sbin/ipfw add allow tcp from <tmpl_var name="hs_net">
+			to any <tmpl_var name="allowed_tcp_ports">
+			via <tmpl_var name="iface">
+
+		/sbin/ipfw add allow tcp from any <tmpl_var name="allowed_tcp_ports">
+			to <tmpl_var name="hs_net"> established via <tmpl_var name="iface">
+
+	</tmpl_if>
+
+</tmpl_unless>

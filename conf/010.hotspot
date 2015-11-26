@@ -1,0 +1,46 @@
+#!/bin/sh
+ctl="/usr/local/sbin/ipacctctl"
+ng="/usr/sbin/ngctl"
+
+case "$1" in
+start)
+	echo -n ' hotspot'
+
+	sleep 3
+
+	/sbin/ifconfig rl0 down
+
+	sleep 1
+
+	/sbin/ifconfig rl0 up
+
+	sleep 1
+
+	$ng name ipfw: ipfw1
+	$ng mkpeer ipfw1: tee 100 left 
+	$ng name ipfw1:100 traf_tee
+	$ng connect ipfw1: 100 200 right
+	$ng mkpeer traf_tee: ipacct left2right traf_in
+	$ng name traf_tee:left2right ip_acct
+	$ng connect ip_acct: traf_tee: traf_out right2left 
+
+	$ctl ip_acct:traf threshold 10000
+	$ctl ip_acct:traf dlt RAW
+	$ctl ip_acct:traf verbose off
+
+	;;
+stop)
+	echo -n ' hotspot'
+
+	/root/ss_hotspot.pl --action=shutdown
+
+	$ng shutdown ip_acct:
+	$ng shutdown traf_tee:
+	;;
+*)
+	echo "Usage: ${0##*/} { start | stop }" >&2
+	exit 64
+	;;
+esac
+
+exit 0

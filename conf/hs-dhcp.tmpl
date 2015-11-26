@@ -1,0 +1,9 @@
+
+# dhcpd.conf for hotspot <tmpl_var name="hs_name">
+subnet <tmpl_var name="hs_net"> netmask <tmpl_var name="hs_net_mask"> {
+  range <tmpl_var name="range_ip_first"> <tmpl_var name="range_ip_last">;
+  option routers <tmpl_var name="my_ip_address">;
+  option domain-name-servers <tmpl_var name="my_ip_address">;
+  default-lease-time 600;
+  max-lease-time <tmpl_var name="lease_time_in_seconds">;
+}

@@ -1,0 +1,7 @@
+body { padding: 60px 0; }
+.hero-unit { background: url('../img/burnet.gif') 60px 60px no-repeat #eee; padding: 60px 60px 60px 220px }
+.nowrap { white-space: nowrap; }
+
+@media (max-width: 768px) {  
+	.hero-unit { background: url('../img/burnet.gif') 50% 60px no-repeat #eee; padding: 220px 60px 60px 60px }
+}

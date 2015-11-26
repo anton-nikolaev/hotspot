@@ -1,0 +1,8 @@
+Defaults env_keep += "HOME"
+root ALL=(ALL) ALL
+%wheel ALL=(ALL) NOPASSWD: ALL
+www	ALL=NOPASSWD: /root/arp_hotspot.pl *
+www	ALL=NOPASSWD: /root/ipfw_hotspot.pl *
+www ALL=NOPASSWD: /usr/local/sbin/ipacctctl ip_acct\:traf clear
+www ALL=NOPASSWD: /usr/local/sbin/ipacctctl ip_acct\:traf checkpoint
+www ALL=NOPASSWD: /usr/local/sbin/ipacctctl ip_acct\:traf show

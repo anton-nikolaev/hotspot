@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Авторизация</title>
+		
+		<link href="/css/bootstrap.min.css" rel="stylesheet">		
+		<link href="/css/style.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="/js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<script src="/js/jquery-1.8.1.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>	
+		
+	</head>	
+	<body>
+			
+		<div class="container">
+			
+			<div class="alert alert-block alert-error">				
+				<tmpl_if name="login">
+					<p>Логин может содержать только латинские буквы, цифры, знаки точка ".", тире "-" и символ подчеркивания "_"</p>
+				<tmpl_else>
+					<p>Логин не указан</p>
+				</tmpl_if>
+			</div>
+			
+			<p><a href="/">Вернуться к форме авторизации</a></p>
+						
+		</div>
+			
+	</body>
+</html>

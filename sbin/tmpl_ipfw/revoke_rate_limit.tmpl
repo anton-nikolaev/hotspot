@@ -1,0 +1,13 @@
+# BEWARE!!
+# 
+# Empty lines are the command separators here. Not just a newline!
+# 
+# BEWARE!!
+
+/sbin/ipfw pipe <tmpl_var name="out_rule_num"> delete
+
+/sbin/ipfw pipe <tmpl_var name="in_rule_num"> delete
+
+/sbin/ipfw delete <tmpl_var name="out_rule_num">
+
+/sbin/ipfw delete <tmpl_var name="in_rule_num">
